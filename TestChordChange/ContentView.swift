@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var viewModel = ChordChangeViewModel()
     
-//    @State var chord: String = ""
+    //    @State var chord: String = ""
     
     var body: some View {
         VStack {
@@ -32,12 +32,39 @@ struct ContentView: View {
                 }){
                     Text("반 키업")
                 }
-
+                
             } // h
             .padding()
             
-            Text("코드 내용 : \(viewModel.chordString)")
+            HStack {
+                Button(action: {
+                    viewModel.chordString = viewModel.transposePerfectFifth(up: false)
+                }){
+                    Text("5도 다운")
+                }
+                
+                Button(action: {
+                    viewModel.chordString = viewModel.transposePerfectFifth(up: true)
+                }){
+                    Text("5도 업")
+                }
+            }
+            .padding()
             
+            HStack {
+                Stepper(value: $viewModel.semitones, in: -11...11) {
+                    Text("이동할 반음 수: \(viewModel.semitones)")
+                }
+                
+                Button(action: {
+                    viewModel.chordString = viewModel.transposeByInterval(viewModel.chordString, semitones: viewModel.semitones)
+                }) {
+                    Text("이동")
+                }
+            }
+            .padding()
+  
+            Text("코드 내용 : \(viewModel.chordString)")
                 .padding()
         }
     }
