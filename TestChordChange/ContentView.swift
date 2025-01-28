@@ -64,8 +64,18 @@ struct ContentView: View {
             }
             .padding()
   
-            Text("코드 내용 : \(viewModel.chordString)")
+            
+            Button(action:{
+                print("#,b 변경")
+                viewModel.chordString = viewModel.sharpFlatChanger(viewModel.chordString)
+            }){
+                Text("#,b 변경")
+            }
+            
+            Text("결과 : \(viewModel.chordString)")
                 .padding()
+                .font(.system(size: 20))
+                
         }
     }
 }
