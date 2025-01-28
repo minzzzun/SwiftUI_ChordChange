@@ -33,7 +33,7 @@ struct ContentView: View {
                     Text("반 키업")
                 }
                 
-            } // h
+            }
             .padding()
             
             HStack {
@@ -63,10 +63,9 @@ struct ContentView: View {
                 }
             }
             .padding()
-  
+            
             
             Button(action:{
-                print("#,b 변경")
                 viewModel.chordString = viewModel.sharpFlatChanger(viewModel.chordString)
             }){
                 Text("#,b 변경")
@@ -75,7 +74,7 @@ struct ContentView: View {
             Text("결과 : \(viewModel.chordString)")
                 .padding()
                 .font(.system(size: 20))
-                
+            
         }
     }
 }

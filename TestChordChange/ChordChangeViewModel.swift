@@ -20,7 +20,7 @@ class ChordChangeViewModel: ObservableObject{
     ]
     
     
-    
+    // 키업
     func transposeUp(_ chord: String) -> String {
         guard !chord.isEmpty else {return ""}
         
@@ -45,7 +45,7 @@ class ChordChangeViewModel: ObservableObject{
     }
     
     
-    
+    // 키 다운
     func transposeDown(_ chord: String) -> String {
         guard !chord.isEmpty else {return ""}
         
@@ -70,8 +70,7 @@ class ChordChangeViewModel: ObservableObject{
     
     
     
-    
-    
+    // 도수 단위로 키 변환
     func transposeByInterval(_ chord: String, semitones: Int) -> String {
         guard !chord.isEmpty else { return "" }
         
@@ -95,7 +94,7 @@ class ChordChangeViewModel: ObservableObject{
         return chord
     }
     
-    // 5도 상행/하행을 위한 헬퍼 메서드
+    // 5도 상행/하행을 위한 메서드
     func transposePerfectFifth(up: Bool) -> String {
         // 완전5도는 7개의 반음
         let interval = up ? 7 : -7
@@ -104,7 +103,7 @@ class ChordChangeViewModel: ObservableObject{
     
     
     
-    
+    // 샾 플랫 변환
     func sharpFlatChanger(_ chord: String) -> String {
         guard !chord.isEmpty else { return "" }
         
@@ -124,7 +123,8 @@ class ChordChangeViewModel: ObservableObject{
     private func extractRootNote(from chord: String) -> String {
         if chord.isEmpty {return ""}
         
-        if chord.count >= 2 && (chord[chord.index(after: chord.startIndex)] == "#" || chord[chord.index(after: chord.startIndex)] == "b") {
+        if chord.count >= 2 && (   chord[chord.index(after: chord.startIndex)] == "#"
+                                || chord[chord.index(after: chord.startIndex)] == "b") {
             return String(chord.prefix(2))
         }
         
