@@ -57,7 +57,7 @@ struct ContentView: View {
                 }
                 
                 Button(action: {
-                    viewModel.chordString = viewModel.transposeByInterval(viewModel.chordString, semitones: viewModel.semitones)
+                    viewModel.chordString = viewModel.transpose(viewModel.chordString, semitones: viewModel.semitones)
                 }) {
                     Text("이동")
                 }
