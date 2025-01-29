@@ -59,15 +59,16 @@ class ChordChangeViewModel: ObservableObject {
         if chord.contains("/") {
             let components = chord.split(separator: "/")
             if components.count == 2 {
-                var rootNote = String(components[0])
+                let mainChord = String(components[0])
                 let bassNote = String(components[1])
                 
-                rootNote = extractRootNote(from: rootNote)
+                let rootNote = extractRootNote(from: mainChord)
+                let tensions = mainChord.dropFirst(rootNote.count)
                 
                 let changedRoot = enharmonicMap[rootNote] ?? rootNote
                 let changedBass = enharmonicMap[bassNote] ?? bassNote
                 
-                return "\(changedRoot)/\(changedBass)"
+                return "\(changedRoot)\(tensions)/\(changedBass)"
             }
         }
         
