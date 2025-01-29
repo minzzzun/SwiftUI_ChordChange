@@ -156,6 +156,10 @@ class ChordChangeViewModel: ObservableObject {
     func transpose(_ chord: String, semitones: Int) -> String {
         guard !chord.isEmpty else { return "" }
         
+        if chord.contains("/"){
+            return transposeSlashChord(chord, semitones: semitones)
+        }
+        
         let rootNote = extractRootNote(from: chord)
         let tensions = chord.dropFirst(rootNote.count)
         let noteArray = rootNote.contains("b") ? flatNotes : sharpNotes
@@ -163,12 +167,6 @@ class ChordChangeViewModel: ObservableObject {
         if let currentIndex = noteArray.firstIndex(of: rootNote) {
             let newIndex = (currentIndex + semitones + noteArray.count) % noteArray.count
             return noteArray[newIndex] + tensions
-        }
-        
-        if let enharmonicNote = enharmonicMap[rootNote],
-           let currentIndex = (rootNote.contains("b") ? sharpNotes : flatNotes).firstIndex(of: enharmonicNote) {
-            let newIndex = (currentIndex + semitones + sharpNotes.count) % sharpNotes.count
-            return sharpNotes[newIndex] + tensions
         }
         
         return chord
@@ -204,6 +202,8 @@ class ChordChangeViewModel: ObservableObject {
         
         if let slashIndex = chord.firstIndex(of: "/") {
             let rootPart = String(chord[..<slashIndex])
+            let bassPart = String(chord[slashIndex ..< chord.endIndex])
+            
             return extractRootNote(from: rootPart)
         }
         
