@@ -17,7 +17,7 @@ class ChordChangeViewModel: ObservableObject {
         "A#": "Bb", "Bb": "A#"
     ]
     
-    // 키 변환 (증가 또는 감소)
+    //MARK: -키 변환(도수 만큼 변환)
     func transpose(_ chord: String, semitones: Int) -> String {
         guard !chord.isEmpty else { return "" }
         
@@ -37,18 +37,22 @@ class ChordChangeViewModel: ObservableObject {
         return chord
     }
     
+    // 반 키 업
     func transposeUp(_ chord: String) -> String {
         return transpose(chord, semitones: 1)
     }
     
+    // 반 키 다운
     func transposeDown(_ chord: String) -> String {
         return transpose(chord, semitones: -1)
     }
     
+    // 5도씩 이동 함수
     func transposePerfectFifth(up: Bool) -> String {
         return transpose(chordString, semitones: up ? 7 : -7)
     }
     
+    // #,b 변환 함수
     func sharpFlatChanger(_ chord: String) -> String {
         guard !chord.isEmpty else { return "" }
         
